@@ -11,4 +11,9 @@ function usarVelocidadeBus() {
 
   document.getElementById("resultado").innerText =
     "⏳ O ônibus chega em aproximadamente " + tempoMin + " minutos!";
+// ===== ATIVAR PWA =====
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js")
+    .then(() => console.log("✅ PWA ativado com sucesso"))
+    .catch((err) => console.log("Erro no SW:", err));
 }
