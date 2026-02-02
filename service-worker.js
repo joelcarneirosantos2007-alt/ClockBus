@@ -38,4 +38,6 @@ self.addEventListener("fetch", (event) => {
       return response || fetch(event.request);
     })
   );
+  self.addEventListener("install", (event) => {
+  console.log("✅ ClockBus instalado no celular!");
 });
