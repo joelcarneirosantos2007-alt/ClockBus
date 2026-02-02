@@ -548,6 +548,16 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("✅ BusClock virou PWA!"))
     .catch((err) => console.log("Erro no SW:", err));
 }
+// ✅ Registrar Service Worker (PWA)
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+    .then(() => {
+      console.log("✅ Service Worker registrado com sucesso!");
+    })
+    .catch((erro) => {
+      console.log("❌ Erro ao registrar:", erro);
+    });
+}
 
   });
 });
