@@ -2,31 +2,161 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>🚏 ClockBus</title>
-
-  <!-- Manifest PWA -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClockBus 🚌</title>
+  <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h1>🚏 ClockBus</h1>
-  <p>Seu relógio inteligente de ônibus e caminhada</p>
+<header>
+  <h1>BusClock 🚌</h1>
+</header>
 
-  <button onclick="usarVelocidadeBus()">
-    Usar velocidade para previsão
-  </button>
+<main>
 
-  <h2 id="resultado"></h2>
+  <section class="clock-section">
+    <h2 id="nowClock">00:00:00</h2>
+  </section>
 
-  <!-- JS -->
-  <script src="script.js"></script>
+  <section class="calc">
+    <h3>🕒 Calculadora do Ônibus</h3>
 
+    <label>O ônibus chega em (minutos):</label>
+    <input type="number" id="minutesInput" placeholder="Ex: 13" />
+    <button id="calcBtn">Calcular Horário</button>
+
+    <p id="arrivalMsg"></p>
+
+    <div class="crono-area">
+      <button id="startCronoBtn">▶️ Iniciar Cronometragem</button>
+      <button id="stopCronoBtn">⏸ Parar</button>
+      <p id="countdownMsg"></p>
+    </div>
+  </section>
+<section class="calc">
+  <h3>⏱️ Cronômetro de Integração</h3>
+
+  <div class="crono-area">
+    <button id="startIntegracaoBtn">▶️ Calcular Integração</button>
+    <button id="stopIntegracaoBtn">⏸ Resetar</button>
+
+    <p id="integracaoTimer">01:30:00</p>
+    <p id="integracaoMsg"></p>
+  </div>
+
+  <audio id="alertSound">
+    <source src="alerta.mp3" type="audio/mpeg">
+  </audio>
+</section>
+
+  <section class="calc">
+    <h3>⏪ Descronômetro</h3>
+
+    <label>Horário que o ônibus passou:</label>
+    <input type="text" id="pastInput" placeholder="Ex: 07:45 ou 13 (min)" />
+
+    <button id="pastCalcBtn">Calcular</button>
+    <p id="pastMsg"></p>
+  </section>
+
+  <section class="calc">
+    <h3>🚀 Crono-Premium</h3>
+
+    <label>Agora são:</label>
+    <input type="time" id="startTimeInput" />
+
+    <label>Ônibus vai passar às:</label>
+    <input type="time" id="endTimeInput" />
+
+    <button id="premiumCalcBtn">Calcular Diferença</button>
+    <p id="premiumMsg"></p>
+  </section>
+
+</main>
+<section class="calc">
+  <h3>🏃 Velocidade Real (Pessoa)</h3>
+
+  <button id="btnIniciarGPS">📍 Iniciar Medição</button>
+  <button id="btnPararGPS">⛔ Parar Medição</button>
+
+  <p><b>Velocidade atual:</b> <span id="velAtualPessoa">0</span> km/h</p>
+  <p><b>Velocidade média:</b> <span id="velMediaPessoa">0</span> km/h</p>
+
+  <button id="btnUsarVelocidade">✅ Usar velocidade para previsão</button>
+
+  <p id="msgVelocidade"></p>
+</section>
+
+<section class="calc">
+  <h3>🚏 Planejador Inteligente</h3>
+  <p>Escolha um perfil ou insira seus próprios dados:</p>
+
+  <div class="perfil-botoes">
+    <button class="botao-perfil" data-velocidade="3.5">🐢 Devagar — 3.5 km/h</button>
+    <button class="botao-perfil" data-velocidade="4.0">🚶 Médio — 4.0 km/h</button>
+    <button class="botao-perfil" data-velocidade="4.5">🏃 Rápido — 4.5 km/h</button>
+  </div>
+
+  <label>Velocidade (km/h):</label>
+  <input type="number" id="velocidade" placeholder="Ex: 4.5">
+
+  <label>Tempo estimado (min):</label>
+  <input type="number" id="tempo" placeholder="Ex: 6">
+
+  <label>Distância (metros):</label>
+  <input type="number" id="distancia" placeholder="Ex: 450">
+
+  <label>Margem de antecedência (min):</label>
+  <input type="number" id="antecedencia" placeholder="Ex: 5" value="5">
+
+  <label>Horário do ônibus (hh:mm):</label>
+  <input type="time" id="horaOnibus">
+
+  <button id="btnPlanejar">🧭 Planejar Viagem</button>
+
+  <pre id="resultadoPlanejador"></pre>
+  <p id="alertaInteligente"></p>
+  <p id="alertaInteligente"></p>
+
+<audio id="somAlerta">
+  <source src="alerta.mp3" type="audio/mpeg">
+</audio>
+
+</section>
+<section class="calc">
+  <h3>⚡ Velocidade – Ônibus e Pessoa</h3>
+
+  <!-- Ônibus -->
+  <div class="box">
+    <h4>🚌 Velocidade do Ônibus</h4>
+
+    <p><b>Velocidade média:</b> <span id="velMediaBus">0</span> km/h</p>
+
+    <button onclick="usarVelocidadeBus()">
+      Usar velocidade para previsão
+    </button>
+
+    <div id="previsaoBus" class="hidden">
+      <p><b>Velocidade aplicada:</b> <span id="prevAjustada"></span></p>
+      <p><b>Status:</b> <span id="distEstimada"></span></p>
+    </div>
+  </div>
+
+  <!-- Pessoa -->
+  <div class="box">
+    <h4>🚶 Minha Velocidade</h4>
+
+    <p><b>Velocidade média:</b> <span id="velMediaPessoa">0</span> km/h</p>
+  </div>
+</section>
+<audio id="somAlerta">
+  <source src="alerta.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
 </body>
 </html>
-
