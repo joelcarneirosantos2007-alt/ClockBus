@@ -1,21 +1,86 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  padding: 30px;
-  background: #f2f2f2;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+  padding-bottom: 100px;
+}
+
+header {
+  background-color: #0077cc;
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.clock-section h2 {
+  font-size: 2em;
+  color: #0077cc;
+  margin: 20px 0;
+}
+
+.calc {
+  background: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #aaa;
 }
 
 button {
-  padding: 15px 20px;
-  font-size: 18px;
+  margin: 10px 5px;
+  padding: 10px 15px;
+  font-size: 1em;
   border: none;
-  border-radius: 12px;
-  background: black;
+  border-radius: 8px;
+  background-color: #0077cc;
   color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover {
-  opacity: 0.8;
+  background-color: #005fa3;
 }
 
+p {
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.crono-area {
+  margin-top: 10px;
+}
+/* ===== Centralização do Crono-Premium ===== */
+.calc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.calc input,
+.calc button {
+  width: 80%;
+  max-width: 250px;
+}
