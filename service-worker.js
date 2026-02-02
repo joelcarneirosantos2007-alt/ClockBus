@@ -1,10 +1,4 @@
-self.addEventListener("install", (event) => {
-  console.log("✅ Service Worker instalado!");
-});
-
-self.addEventListener("fetch", (event) => {
-  // futuro: cache offline
-const CACHE_NAME = "clockbus-v1";
+const CACHE_NAME = "busclock-v1";
 
 const FILES_TO_CACHE = [
   "./",
@@ -12,11 +6,10 @@ const FILES_TO_CACHE = [
   "./style.css",
   "./script.js",
   "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./alerta.mp3"
 ];
 
-// Instala e salva arquivos no cache
+// instalar e salvar arquivos offline
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -25,22 +18,20 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Ativa e limpa caches antigos
+// ativar
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(
-        keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
         })
-      );
-    })
+      )
+    )
   );
 });
 
-// Sempre abre offline pelo cache
+// buscar offline
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
@@ -48,5 +39,3 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
-
-
